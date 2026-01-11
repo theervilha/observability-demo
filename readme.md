@@ -72,7 +72,13 @@ Create a prometheus.yml with the following content:
 
 Run in a docker container:
 
-`docker run --rm --name prometheus --network otel-network -v ${PWD}/prometheus.yml:/prometheus/prometheus.yml -p 9090:9090 prom/prometheus --enable-feature=otlp-write-receive --enable-feature=remote-write-receiver`
+`docker run --rm --name prometheus \
+  --network otel-network \
+  -v ${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml \
+  -p 9090:9090 \
+  prom/prometheus \
+  --config.file=/etc/prometheus/prometheus.yml \
+  --web.enable-otlp-receiver`
 
 
 ## Testing Observability

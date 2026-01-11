@@ -12,8 +12,8 @@ exporters:
     endpoint: jaeger:4317
     tls:
       insecure: true
-  prometheusremotewrite:
-    endpoint: http://prometheus:9090/api/v1/otlp
+  otlphttp/prometheus:
+    endpoint: "http://prometheus:9090/api/v1/otlp"
     tls:
       insecure: true
 service:
@@ -23,7 +23,7 @@ service:
       exporters: [debug, otlp/jaeger]
     metrics:
       receivers: [otlp]
-      exporters: [debug, prometheusremotewrite]
+      exporters: [debug, otlphttp/prometheus]
     logs:
       receivers: [otlp]
       exporters: [debug]
