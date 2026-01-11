@@ -10,6 +10,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.67.3",
+    "@opentelemetry/sdk-metrics": "^2.3.0",
+    "@opentelemetry/sdk-node": "^0.209.0",
+    "@opentelemetry/sdk-trace-node": "^2.3.0",
     "@types/express": "^5.0.6",
     "express": "^5.2.1"
   },
