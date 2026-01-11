@@ -1,5 +1,5 @@
 # Run app with OpenTelemetry
 
-`npx tsx --import ./instrumentation.ts app.ts`
+`npx tsx --import ./src/instrumentation.ts src/app.ts`
 
 See results in console
