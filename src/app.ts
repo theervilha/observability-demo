@@ -5,7 +5,7 @@ const PORT: number = parseInt(process.env.PORT || '8080');
 const app: Express = express();
 
 app.get('/rolldice', (req, res) => {
-  res.send(rollOnce(1, 6).toString());
+  res.send(rollOnce(0, 1, 6).toString());
 });
 
 app.get('/rolldices', (req, res) => {
