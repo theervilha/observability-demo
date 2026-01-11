@@ -1,10 +1,30 @@
-import { trace, type Span } from '@opentelemetry/api';
+import { trace, metrics, type Span, ValueType } from '@opentelemetry/api';
 
 const tracer = trace.getTracer('dice-lib', '0.1.0');
+const meter = metrics.getMeter('dice-server', '0.1.0');
+
+// Counter possibitilies: counter / upDownCounter / histogram
+const counter = meter.createCounter(
+    'dice-lib.rolls.counter',
+    // Describing instruments
+    {
+        description: 'Counts how many times the dice have been rolled',
+        unit: 'units',
+        valueType: ValueType.INT,
+    }
+);
+
+/**
+ * Also it is possible to use observable counters.
+ * Observable (Async) Counters -> Monotonically increasing cumulative value observed at intervals. (e.g., total requests: 100, 150, 200...)
+ * Observable (Async) UpDown Counters -> Cumulative value that can go up and down observed at intervals. (e.g., active connections: 10, 8, 12...))
+ * Observable (Async) Gauge -> Gauge value observed at intervals. Current instantaneous value (not cumulative) (e.g., CPU usage: 50%, 75%, 30%...)
+ */
 
 export function rollOnce(i: number = 0, min: number, max: number) {
   return tracer.startActiveSpan(`rollOnce${i}`, (span: Span) => {
     const result = Math.floor(Math.random() * (max - min + 1) + min);
+    counter.add(1, { 'some.optional.attribute': result.toString() });
 
     // Add key/value to carry more information
     span.setAttribute('dicelib.rolled', result.toString());

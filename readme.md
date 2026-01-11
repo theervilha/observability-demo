@@ -2,4 +2,4 @@
 
 `npx tsx --import ./src/instrumentation.ts src/app.ts`
 
-See results in console
+See traces and metrics results in console
