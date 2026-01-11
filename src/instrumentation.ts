@@ -10,6 +10,8 @@ import {
   ATTR_SERVICE_NAME,
   ATTR_SERVICE_VERSION,
 } from '@opentelemetry/semantic-conventions';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
+import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
 
 const resource = defaultResource().merge(
   resourceFromAttributes({
@@ -19,13 +21,20 @@ const resource = defaultResource().merge(
 );
 
 const metricReader = new PeriodicExportingMetricReader({
-  exporter: new ConsoleMetricExporter(),
+  exporter: new OTLPMetricExporter({
+    //url: '<your-otlp-endpoint>/v1/metrics', // url is optional and can be omitted - default is http://localhost:4318/v1/metrics
+    headers: {},
+  }),
   exportIntervalMillis: 10000,
 });
 
 const sdk = new NodeSDK({
   resource,
-  traceExporter: new ConsoleSpanExporter(),
+  traceExporter: new OTLPTraceExporter({
+    // optional - default url is http://localhost:4318/v1/traces
+    //url: '<your-otlp-endpoint>/v1/traces',
+    headers: {},
+  }),
   metricReader: metricReader,
   instrumentations: [getNodeAutoInstrumentations()],
 });

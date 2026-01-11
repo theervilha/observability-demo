@@ -24,7 +24,7 @@ const counter = meter.createCounter(
 export function rollOnce(i: number = 0, min: number, max: number) {
   return tracer.startActiveSpan(`rollOnce${i}`, (span: Span) => {
     const result = Math.floor(Math.random() * (max - min + 1) + min);
-    counter.add(1, { 'some.optional.attribute': result.toString() });
+    counter.add(1)//, { 'some.optional.attribute': result.toString() });
 
     // Add key/value to carry more information
     span.setAttribute('dicelib.rolled', result.toString());
