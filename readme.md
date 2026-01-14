@@ -96,3 +96,17 @@ Access http://localhost:8080/rolldices?rolls=200
 
 Access Jaeger and see the traces in: http://localhost:16686
 Wait 10 seconds and access Prometheus to see the metrics: http://localhost:9090
+
+## Data Visualization With Grafana
+
+(Docs)[https://opentelemetry.io/docs/languages/dotnet/metrics/getting-started-prometheus-grafana]
+
+Grafana will use Prometheus Data to create charts
+
+Run Grafana (via Docker)[https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker] CLI
+
+`docker run -p 3000:3000 --name=grafana --network otel-network grafana/grafana`
+
+Use admin as login, and configure Prometheus server
+
+Then, import the (community data visualization)[https://grafana.com/grafana/dashboards/1860-node-exporter-full/]

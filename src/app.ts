@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import { rollOnce, rollTheDice } from './dice';
 import { metrics } from '@opentelemetry/api';
 
-const PORT: number = parseInt(process.env.PORT || '8081');
+const PORT: number = parseInt(process.env.PORT || '8080');
 const app: Express = express();
 
 const meter = metrics.getMeter('dice-server', '0.1.0');
