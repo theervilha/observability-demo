@@ -12,6 +12,8 @@ import {
 } from '@opentelemetry/semantic-conventions';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
+import { HostMetrics } from '@opentelemetry/host-metrics';
+import { metrics } from '@opentelemetry/api';
 
 const resource = defaultResource().merge(
   resourceFromAttributes({
@@ -40,3 +42,12 @@ const sdk = new NodeSDK({
 });
 
 sdk.start();
+
+const meter = metrics.getMeterProvider();
+
+const hostMetrics = new HostMetrics({
+  meterProvider: meter,
+  name: 'host-metrics'
+});
+
+hostMetrics.start();
